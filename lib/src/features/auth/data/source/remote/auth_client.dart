@@ -33,4 +33,7 @@ abstract class UserClient {
   Future<HttpResponse<void>> logout(
     @Header('Authorization') String authorization,
   );
+
+  @POST('/user/info')
+  Future<HttpResponse<void>> info();
 }

@@ -42,3 +42,12 @@ class LogoutUseCase {
     return userRepository.logout(accessToken);
   }
 }
+
+class InfoUseCase {
+  final UserRepository userRepository;
+  InfoUseCase(this.userRepository);
+
+  Future<DataState<void>> call(String accessToken) {
+    return userRepository.logout(accessToken);
+  }
+}

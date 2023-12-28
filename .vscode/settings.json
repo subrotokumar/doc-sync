@@ -10,13 +10,24 @@
     "**/.project": false,
     "**/.settings": false,
     "**/.factorypath": false,
-    "**/generated": false,
+    "**/generated": true,
     "**/.vscode": true,
     ".dart_tool": true,
     ".idea": true,
     "macos": true,
     "linux": true,
-    "build": true
+    "build": true,
+    ".flutter-plugins": true,
+    ".flutter-plugins-dependencies": true,
+    ".metadata": true,
+    "docsync.iml": true,
+    "analysis_options.yaml": true,
+    "build.yaml": true,
+    "web": true,
+    ".git": true,
+    "android": true,
+    "ios": true,
+    "windows": true
   },
   "explorerExclude.backup": {}
 }

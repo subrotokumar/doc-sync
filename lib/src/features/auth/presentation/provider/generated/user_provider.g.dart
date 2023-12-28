@@ -36,7 +36,7 @@ final loginUseCaseProvider = AutoDisposeProvider<LoginUseCase>.internal(
 
 typedef LoginUseCaseRef = AutoDisposeProviderRef<LoginUseCase>;
 String _$refreshTokenUseCaseHash() =>
-    r'42aefbc1ecc814ca7c6118479ca9879fd25fe36c';
+    r'b62060f3505ea8421fa2ec8154f6dbc8ad9f09f3';
 
 /// See also [refreshTokenUseCase].
 @ProviderFor(refreshTokenUseCase)

@@ -5,7 +5,7 @@ import 'package:docsync/src/core/core.dart';
 import 'package:docsync/src/core/utils/secure_storage.dart';
 import 'package:docsync/src/features/auth/domain/entities/auth_user_req.dart';
 import 'package:docsync/src/features/auth/presentation/provider/user_provider.dart';
-import 'package:docsync/src/features/common/providers/provider.dart';
+import 'package:docsync/src/features/common/presentation/providers/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -183,11 +183,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                         email: emailInput.text,
                                       ),
                                     );
-                            if (response is DataSuccess &&
-                                response.data != null) {
+                            logger.f(response);
+                            if (response is DataSuccess) {
                               final res = response.data;
                               if (res == null) return;
-                              logger.d(res);
+                              if (!res.success) {
+                                context.showToast(
+                                  title: res.message,
+                                  type: ToastType.warning,
+                                );
+                                return;
+                              }
                               context.showToast(
                                 title: res.message,
                               );
@@ -196,10 +202,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               ref.read(accessTokenProvider.notifier).update =
                                   res.data?.accessToken ?? '';
 
-                              context.push('/editor');
+                              context.push('/home');
                             } else {
                               context.showToast(
-                                title: response.data?.message ??
+                                title: response.error?.message ??
                                     'Something went wrong',
                                 type: ToastType.error,
                               );

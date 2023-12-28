@@ -6,7 +6,7 @@ part of '../provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$dioHash() => r'd3d4c1a9dff271abc1f409f1c2163e82fb84ee4f';
+String _$dioHash() => r'40da5fa1891ef24a33c8f8610496d5989250e8fd';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -41,9 +41,11 @@ class DioFamily extends Family<Dio> {
   /// See also [dio].
   DioProvider call({
     bool useIsolate = false,
+    bool useRefreshInterceptor = true,
   }) {
     return DioProvider(
       useIsolate: useIsolate,
+      useRefreshInterceptor: useRefreshInterceptor,
     );
   }
 
@@ -53,6 +55,7 @@ class DioFamily extends Family<Dio> {
   ) {
     return call(
       useIsolate: provider.useIsolate,
+      useRefreshInterceptor: provider.useRefreshInterceptor,
     );
   }
 
@@ -76,10 +79,12 @@ class DioProvider extends Provider<Dio> {
   /// See also [dio].
   DioProvider({
     bool useIsolate = false,
+    bool useRefreshInterceptor = true,
   }) : this._internal(
           (ref) => dio(
             ref as DioRef,
             useIsolate: useIsolate,
+            useRefreshInterceptor: useRefreshInterceptor,
           ),
           from: dioProvider,
           name: r'dioProvider',
@@ -88,6 +93,7 @@ class DioProvider extends Provider<Dio> {
           dependencies: DioFamily._dependencies,
           allTransitiveDependencies: DioFamily._allTransitiveDependencies,
           useIsolate: useIsolate,
+          useRefreshInterceptor: useRefreshInterceptor,
         );
 
   DioProvider._internal(
@@ -98,9 +104,11 @@ class DioProvider extends Provider<Dio> {
     required super.debugGetCreateSourceHash,
     required super.from,
     required this.useIsolate,
+    required this.useRefreshInterceptor,
   }) : super.internal();
 
   final bool useIsolate;
+  final bool useRefreshInterceptor;
 
   @override
   Override overrideWith(
@@ -116,6 +124,7 @@ class DioProvider extends Provider<Dio> {
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
         useIsolate: useIsolate,
+        useRefreshInterceptor: useRefreshInterceptor,
       ),
     );
   }
@@ -127,13 +136,16 @@ class DioProvider extends Provider<Dio> {
 
   @override
   bool operator ==(Object other) {
-    return other is DioProvider && other.useIsolate == useIsolate;
+    return other is DioProvider &&
+        other.useIsolate == useIsolate &&
+        other.useRefreshInterceptor == useRefreshInterceptor;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, useIsolate.hashCode);
+    hash = _SystemHash.combine(hash, useRefreshInterceptor.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -142,6 +154,9 @@ class DioProvider extends Provider<Dio> {
 mixin DioRef on ProviderRef<Dio> {
   /// The parameter `useIsolate` of this provider.
   bool get useIsolate;
+
+  /// The parameter `useRefreshInterceptor` of this provider.
+  bool get useRefreshInterceptor;
 }
 
 class _DioProviderElement extends ProviderElement<Dio> with DioRef {
@@ -149,6 +164,9 @@ class _DioProviderElement extends ProviderElement<Dio> with DioRef {
 
   @override
   bool get useIsolate => (origin as DioProvider).useIsolate;
+  @override
+  bool get useRefreshInterceptor =>
+      (origin as DioProvider).useRefreshInterceptor;
 }
 
 String _$accessTokenHash() => r'b5b51191fedafd9e5c4298c33e8f4c2ef13389ff';

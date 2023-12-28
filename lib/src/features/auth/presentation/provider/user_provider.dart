@@ -2,7 +2,7 @@ import 'package:docsync/src/features/auth/data/repositories/user_repository_impl
 import 'package:docsync/src/features/auth/data/source/remote/auth_client.dart';
 import 'package:docsync/src/features/auth/domain/repositories/user_repository.dart';
 import 'package:docsync/src/features/auth/domain/usecase/user_usecase.dart';
-import 'package:docsync/src/features/common/providers/provider.dart';
+import 'package:docsync/src/features/common/presentation/providers/provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'generated/user_provider.g.dart';
 
@@ -20,7 +20,8 @@ LoginUseCase loginUseCase(LoginUseCaseRef ref) {
 
 @riverpod
 RefreshTokenUseCase refreshTokenUseCase(RefreshTokenUseCaseRef ref) {
-  final userRepository = ref.read(userRepositoryProvider);
+  final dio = ref.read(dioProvider(useRefreshInterceptor: false));
+  final userRepository = UserRepositoryImpl(client: UserClient(dio));
   return RefreshTokenUseCase(userRepository);
 }
 

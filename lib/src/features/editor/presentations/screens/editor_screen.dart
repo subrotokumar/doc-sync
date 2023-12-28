@@ -3,10 +3,12 @@ import 'package:docsync/src/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class EditorScreen extends StatefulWidget {
-  const EditorScreen({super.key});
+  final String id;
+  const EditorScreen({super.key, required this.id});
 
   @override
   State<EditorScreen> createState() => _EditorScreenState();
@@ -26,7 +28,10 @@ class _EditorScreenState extends State<EditorScreen> {
             child: Row(
               children: [
                 const Gap(10),
-                Assets.images.folders.image(height: 30),
+                GestureDetector(
+                  onTap: () => {context.pop()},
+                  child: Assets.images.folders.image(height: 30),
+                ),
                 const Gap(12),
                 Text(
                   'Docsync',
