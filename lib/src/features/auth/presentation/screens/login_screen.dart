@@ -1,7 +1,16 @@
-import 'package:docsync/src/core/core.dart';
-import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
+// ignore_for_file: use_build_context_synchronously
 
+import 'package:docsync/src/config/config.dart';
+import 'package:docsync/src/core/core.dart';
+import 'package:docsync/src/core/utils/secure_storage.dart';
+import 'package:docsync/src/features/auth/domain/entities/auth_user_req.dart';
+import 'package:docsync/src/features/auth/presentation/provider/user_provider.dart';
+import 'package:docsync/src/features/common/providers/provider.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:docsync/src/config/themes/themes.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -15,6 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final emailInput = TextEditingController();
   final passwordInput = TextEditingController();
   final usernameInput = TextEditingController();
+  bool showPassword = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey),
                           ),
-                          hintText: 'Email or Username',
+                          hintText: 'Enter your email',
                           hintStyle: Poppins(
                             fontWeight: FontWeight.w400,
                             fontSize: 16,
@@ -111,13 +121,24 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextField(
                         controller: passwordInput,
                         keyboardType: TextInputType.text,
-                        obscureText: true,
+                        obscureText: showPassword,
                         decoration: InputDecoration(
                           isDense: true,
                           filled: true,
                           fillColor: Colors.white,
                           focusColor: colorFromHex('ebecf0'),
                           hoverColor: colorFromHex('ebecf0'),
+                          suffixIcon: IconButton(
+                            onPressed: () => setState(() {
+                              showPassword = !showPassword;
+                            }),
+                            icon: Icon(
+                              !showPassword
+                                  ? PhosphorIconsBold.eyeSlash
+                                  : PhosphorIconsBold.eye,
+                              color: Colors.black26,
+                            ),
+                          ),
                           border: const OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey),
                           ),
@@ -135,18 +156,58 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       const Gap(16),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: colorFromHex('0065ff'),
-                          foregroundColor: Colors.white,
-                          minimumSize: const Size.fromHeight(55),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(6),
+                      Consumer(builder: (context, ref, child) {
+                        return ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: colorFromHex('0065ff'),
+                            foregroundColor: Colors.white,
+                            minimumSize: const Size.fromHeight(55),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6),
+                            ),
                           ),
-                        ),
-                        onPressed: () {},
-                        child: const Text('Continue'),
-                      ),
+                          onPressed: () async {
+                            if (emailInput.text.isEmpty ||
+                                passwordInput.text.isEmpty) {
+                              context.showToast(
+                                title: 'Email or password field is empty',
+                                type: ToastType.error,
+                              );
+                              return;
+                            }
+                            final response =
+                                await ref.read(loginUseCaseProvider).call(
+                                      AuthUserReq(
+                                        username: 'ss',
+                                        password: passwordInput.text,
+                                        email: emailInput.text,
+                                      ),
+                                    );
+                            if (response is DataSuccess &&
+                                response.data != null) {
+                              final res = response.data;
+                              if (res == null) return;
+                              logger.d(res);
+                              context.showToast(
+                                title: res.message,
+                              );
+                              await SecureStorage.setRefreshToken(
+                                  res.data?.refreshToken ?? '');
+                              ref.read(accessTokenProvider.notifier).update =
+                                  res.data?.accessToken ?? '';
+
+                              context.push('/editor');
+                            } else {
+                              context.showToast(
+                                title: response.data?.message ??
+                                    'Something went wrong',
+                                type: ToastType.error,
+                              );
+                            }
+                          },
+                          child: const Text('Continue'),
+                        );
+                      }),
                       const Gap(20),
                       Text(
                         'Or continue with',

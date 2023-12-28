@@ -4,14 +4,6 @@ enum Gender { male, female, others }
 
 enum ButtonSize { small, medium, large }
 
-enum SecureStorage {
-  accessToken,
-  refreshToken,
-  seedPhase,
-  privateKey,
-  publicKey
-}
-
 enum ChainId { eip155, solana, bip122 }
 
 enum NetworkChain {

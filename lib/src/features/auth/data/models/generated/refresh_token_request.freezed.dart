@@ -110,6 +110,18 @@ class _$RefreshTokenRequestImpl implements _RefreshTokenRequest {
     return 'RefreshTokenRequest(refresh: $refresh)';
   }
 
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RefreshTokenRequestImpl &&
+            (identical(other.refresh, refresh) || other.refresh == refresh));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, refresh);
+
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')

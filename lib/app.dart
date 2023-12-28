@@ -12,8 +12,7 @@ class MyApp extends ConsumerWidget {
       builder: (context) => MaterialApp.router(
         debugShowCheckedModeBanner: false,
         title: 'Docs',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        theme: ThemeData.light(
           useMaterial3: true,
         ),
         routerConfig: goRouter,

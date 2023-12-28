@@ -6,7 +6,7 @@ part of '../provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$dioHash() => r'6a3c27b274ff1f9e5995b6f8adb1054a40c6739b';
+String _$dioHash() => r'd3d4c1a9dff271abc1f409f1c2163e82fb84ee4f';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -150,5 +150,20 @@ class _DioProviderElement extends ProviderElement<Dio> with DioRef {
   @override
   bool get useIsolate => (origin as DioProvider).useIsolate;
 }
+
+String _$accessTokenHash() => r'b5b51191fedafd9e5c4298c33e8f4c2ef13389ff';
+
+/// See also [AccessToken].
+@ProviderFor(AccessToken)
+final accessTokenProvider = NotifierProvider<AccessToken, String>.internal(
+  AccessToken.new,
+  name: r'accessTokenProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$accessTokenHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$AccessToken = Notifier<String>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

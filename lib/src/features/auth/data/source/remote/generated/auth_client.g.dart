@@ -12,22 +12,21 @@ class _UserClient implements UserClient {
   _UserClient(
     this._dio, {
     this.baseUrl,
-  }) {
-    baseUrl ??= 'https://localhost:3001/api/v1/';
-  }
+  });
 
   final Dio _dio;
 
   String? baseUrl;
 
   @override
-  Future<HttpResponse<dynamic>> register(AuthUserRequest body) async {
+  Future<HttpResponse<ApiResponse<RegisterUserResponse>>> register(
+      AuthUserRequest body) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = body;
-    final _result =
-        await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<HttpResponse<ApiResponse<RegisterUserResponse>>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -43,19 +42,23 @@ class _UserClient implements UserClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = _result.data;
+    final value = ApiResponse<RegisterUserResponse>.fromJson(
+      _result.data!,
+      (json) => RegisterUserResponse.fromJson(json as Map<String, dynamic>),
+    );
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }
 
   @override
-  Future<HttpResponse<dynamic>> login(AuthUserRequest body) async {
+  Future<HttpResponse<ApiResponse<LoginUserResponse>>> login(
+      AuthUserRequest body) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = body;
-    final _result =
-        await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<HttpResponse<ApiResponse<LoginUserResponse>>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -71,19 +74,23 @@ class _UserClient implements UserClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = _result.data;
+    final value = ApiResponse<LoginUserResponse>.fromJson(
+      _result.data!,
+      (json) => LoginUserResponse.fromJson(json as Map<String, dynamic>),
+    );
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }
 
   @override
-  Future<HttpResponse<dynamic>> refresh() async {
+  Future<HttpResponse<ApiResponse<RefreshTokenResponse>>> refresh(
+      RefreshTokenRequest body) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
-    final _result =
-        await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
+    final _data = body;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<HttpResponse<ApiResponse<RefreshTokenResponse>>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -99,19 +106,23 @@ class _UserClient implements UserClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = _result.data;
+    final value = ApiResponse<RefreshTokenResponse>.fromJson(
+      _result.data!,
+      (json) => RefreshTokenResponse.fromJson(json as Map<String, dynamic>),
+    );
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }
 
   @override
-  Future<HttpResponse<dynamic>> logout() async {
+  Future<HttpResponse<void>> logout(String authorization) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authorization': authorization};
+    _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;
     final _result =
-        await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
+        await _dio.fetch<void>(_setStreamType<HttpResponse<void>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -127,8 +138,7 @@ class _UserClient implements UserClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = _result.data;
-    final httpResponse = HttpResponse(value, _result);
+    final httpResponse = HttpResponse(null, _result);
     return httpResponse;
   }
 
