@@ -1,3 +1,3 @@
 export 'assets.gen.dart';
 
-const endpoint = 'https://spine-focus-dh-being.trycloudflare.com/api/v1';
+const endpoint = 'http://localhost:3001';

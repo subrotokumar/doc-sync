@@ -1,17 +1,18 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:docsync/src/config/config.dart';
-import 'package:docsync/src/core/core.dart';
-import 'package:docsync/src/core/utils/secure_storage.dart';
-import 'package:docsync/src/features/auth/domain/entities/auth_user_req.dart';
-import 'package:docsync/src/features/auth/presentation/provider/user_provider.dart';
-import 'package:docsync/src/features/common/presentation/providers/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+
+import 'package:docsync/src/config/config.dart';
 import 'package:docsync/src/config/themes/themes.dart';
+import 'package:docsync/src/core/core.dart';
+import 'package:docsync/src/core/utils/secure_storage.dart';
+import 'package:docsync/src/features/auth/domain/entities/auth_user_req.dart';
+import 'package:docsync/src/features/auth/presentation/provider/user_provider.dart';
+import 'package:docsync/src/features/common/presentation/providers/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

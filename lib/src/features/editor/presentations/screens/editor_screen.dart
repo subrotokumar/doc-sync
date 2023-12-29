@@ -1,8 +1,8 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, unused_result
 
 import 'dart:io';
 
-import 'package:docsync/src/features/home/presentation/provider/document_provider.dart';
+import 'package:docsync/src/features/editor/presentations/provider/socket_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,6 +14,7 @@ import 'package:docsync/src/config/themes/themes.dart';
 import 'package:docsync/src/core/core.dart';
 import 'package:docsync/src/features/editor/domain/entities/docs.dart';
 import 'package:docsync/src/features/editor/presentations/provider/docs_provider.dart';
+import 'package:docsync/src/features/home/presentation/provider/document_provider.dart';
 
 class EditorScreen extends ConsumerStatefulWidget {
   final String id;
@@ -32,7 +33,7 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
   void initState() {
     super.initState();
     titleInput.text = widget.title;
-    // ignore: unused_result
+    ref.read(socketRepositoryProvider).joinRoom(widget.id);
     ref.refresh(getDocByIdProvider(widget.id));
   }
 
@@ -175,8 +176,8 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
                     );
                   },
                   error: (e, s) {
-                    return Center(
-                      child: Text(e.toString()),
+                    return const Center(
+                      child: Text("This Document does't exit"),
                     );
                   },
                   loading: () => const Center(
