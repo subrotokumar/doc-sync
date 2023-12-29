@@ -27,249 +27,259 @@ class _LoginScreenState extends State<LoginScreen> {
   bool showPassword = false;
   @override
   Widget build(BuildContext context) {
+    final mq = context.mediaQueryData;
     return Scaffold(
       backgroundColor: colorFromHex('fafbfc'),
       body: LayoutBuilder(builder: (context, boxConstraints) {
         final visible = boxConstraints.maxWidth > 800;
-        return Container(
-          padding: const EdgeInsets.all(10),
-          child: Stack(
-            children: [
-              Align(
-                alignment: Alignment.bottomLeft,
-                child: Visibility(
-                  visible: visible,
-                  child: Assets.gifs.juicyTeamDiscussingTheProject.image(
-                    height: 300,
+        return SingleChildScrollView(
+          child: Container(
+            height: mq.size.height,
+            width: mq.size.width,
+            padding: const EdgeInsets.all(10).copyWith(bottom: 0),
+            child: Stack(
+              children: [
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Visibility(
+                    visible: visible,
+                    child: Assets.gifs.juicyTeamDiscussingTheProject.image(
+                      height: 300,
+                    ),
                   ),
                 ),
-              ),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: Visibility(
-                  visible: visible,
-                  child: Assets.gifs
-                      .juicyGirlAndGuyPreparingStartUpRocketToLaunchWithIdeas
-                      .image(
-                    height: 260,
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Visibility(
+                    visible: visible,
+                    child: Assets.gifs
+                        .juicyGirlAndGuyPreparingStartUpRocketToLaunchWithIdeas
+                        .image(
+                      height: 260,
+                    ),
                   ),
                 ),
-              ),
-              Center(
-                child: Container(
-                  constraints: const BoxConstraints(
-                    maxWidth: 400,
-                  ),
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(4),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.black26,
-                        blurRadius: 4,
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Assets.images.folders.image(height: 24),
-                          const Gap(8),
-                          Text(
-                            'Docsync',
-                            style: Poppins(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 22,
-                              color: Colors.grey.shade800,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Gap(30),
-                      TextField(
-                        controller: emailInput,
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                          isDense: true,
-                          filled: true,
-                          fillColor: Colors.white,
-                          focusColor: colorFromHex('ebecf0'),
-                          hoverColor: colorFromHex('ebecf0'),
-                          border: const OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey),
-                          ),
-                          enabledBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey),
-                          ),
-                          focusedBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey),
-                          ),
-                          hintText: 'Enter your email',
-                          hintStyle: Poppins(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 16,
-                          ),
+                Center(
+                  child: Container(
+                    constraints: const BoxConstraints(
+                      maxWidth: 400,
+                      minHeight: 400,
+                    ),
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(4),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.black26,
+                          blurRadius: 4,
                         ),
-                      ),
-                      const Gap(16),
-                      TextField(
-                        controller: passwordInput,
-                        keyboardType: TextInputType.text,
-                        obscureText: showPassword,
-                        decoration: InputDecoration(
-                          isDense: true,
-                          filled: true,
-                          fillColor: Colors.white,
-                          focusColor: colorFromHex('ebecf0'),
-                          hoverColor: colorFromHex('ebecf0'),
-                          suffixIcon: IconButton(
-                            onPressed: () => setState(() {
-                              showPassword = !showPassword;
-                            }),
-                            icon: Icon(
-                              !showPassword
-                                  ? PhosphorIconsBold.eyeSlash
-                                  : PhosphorIconsBold.eye,
-                              color: Colors.black26,
-                            ),
-                          ),
-                          border: const OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey),
-                          ),
-                          enabledBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey),
-                          ),
-                          focusedBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey),
-                          ),
-                          hintText: 'Password',
-                          hintStyle: Poppins(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                      const Gap(16),
-                      Consumer(builder: (context, ref, child) {
-                        return ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: colorFromHex('0065ff'),
-                            foregroundColor: Colors.white,
-                            minimumSize: const Size.fromHeight(55),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                          ),
-                          onPressed: () async {
-                            if (emailInput.text.isEmpty ||
-                                passwordInput.text.isEmpty) {
-                              context.showToast(
-                                title: 'Email or password field is empty',
-                                type: ToastType.error,
-                              );
-                              return;
-                            }
-                            final response =
-                                await ref.read(loginUseCaseProvider).call(
-                                      AuthUserReq(
-                                        username: 'ss',
-                                        password: passwordInput.text,
-                                        email: emailInput.text,
-                                      ),
-                                    );
-                            logger.f(response);
-                            if (response is DataSuccess) {
-                              final res = response.data;
-                              if (res == null) return;
-                              if (!res.success) {
-                                context.showToast(
-                                  title: res.message,
-                                  type: ToastType.warning,
-                                );
-                                return;
-                              }
-                              context.showToast(
-                                title: res.message,
-                              );
-                              await SecureStorage.setRefreshToken(
-                                  res.data?.refreshToken ?? '');
-                              ref.read(accessTokenProvider.notifier).update =
-                                  res.data?.accessToken ?? '';
-
-                              context.push('/home');
-                            } else {
-                              context.showToast(
-                                title: response.error?.message ??
-                                    'Something went wrong',
-                                type: ToastType.error,
-                              );
-                            }
-                          },
-                          child: const Text('Continue'),
-                        );
-                      }),
-                      const Gap(20),
-                      Text(
-                        'Or continue with',
-                        style: Poppins(
-                          fontWeight: FontWeight.w500,
-                          color: Colors.grey.shade500,
-                        ),
-                      ),
-                      const Gap(10),
-                      OutlinedButton(
-                        style: OutlinedButton.styleFrom(
-                          foregroundColor: Colors.black,
-                          minimumSize: const Size.fromHeight(55),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(3),
-                            side: const BorderSide(
-                              width: 0.5,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ),
-                        onPressed: () {},
-                        child: Row(
+                      ],
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Assets.images.google.image(height: 20),
-                            const Gap(10),
+                            Assets.images.folders.image(height: 24),
+                            const Gap(8),
                             Text(
-                              'Google',
+                              'Docsync',
                               style: Poppins(
                                 fontWeight: FontWeight.w600,
+                                fontSize: 22,
+                                color: Colors.grey.shade800,
                               ),
                             ),
                           ],
                         ),
-                      ),
-                      const Gap(20),
-                      TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          'Create a account',
-                          style: Poppins(color: Colors.indigo, fontSize: 12),
+                        const Gap(30),
+                        TextField(
+                          controller: emailInput,
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: InputDecoration(
+                            isDense: true,
+                            filled: true,
+                            fillColor: Colors.white,
+                            focusColor: colorFromHex('ebecf0'),
+                            hoverColor: colorFromHex('ebecf0'),
+                            border: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
+                            ),
+                            enabledBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
+                            ),
+                            focusedBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
+                            ),
+                            hintText: 'Enter your email',
+                            hintStyle: Poppins(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16,
+                            ),
+                          ),
                         ),
-                      ),
-                      const Divider(),
-                      Text(
-                        'Privacy • Github',
-                        style: Poppins(
-                          fontSize: 12,
+                        const Gap(16),
+                        TextField(
+                          controller: passwordInput,
+                          keyboardType: TextInputType.text,
+                          obscureText: showPassword,
+                          decoration: InputDecoration(
+                            isDense: true,
+                            filled: true,
+                            fillColor: Colors.white,
+                            focusColor: colorFromHex('ebecf0'),
+                            hoverColor: colorFromHex('ebecf0'),
+                            suffixIcon: IconButton(
+                              onPressed: () => setState(() {
+                                showPassword = !showPassword;
+                              }),
+                              icon: Icon(
+                                !showPassword
+                                    ? PhosphorIconsBold.eyeSlash
+                                    : PhosphorIconsBold.eye,
+                                color: Colors.black26,
+                              ),
+                            ),
+                            border: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
+                            ),
+                            enabledBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
+                            ),
+                            focusedBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
+                            ),
+                            hintText: 'Password',
+                            hintStyle: Poppins(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16,
+                            ),
+                          ),
                         ),
-                      )
-                    ],
+                        const Gap(16),
+                        Consumer(builder: (context, ref, child) {
+                          return ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: colorFromHex('0065ff'),
+                              foregroundColor: Colors.white,
+                              minimumSize: const Size.fromHeight(55),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                            ),
+                            onPressed: () async {
+                              if (emailInput.text.isEmpty ||
+                                  passwordInput.text.isEmpty) {
+                                context.showToast(
+                                  title: 'Email or password field is empty',
+                                  type: ToastType.error,
+                                );
+                                return;
+                              }
+                              final isEmail = emailInput.text.contains('@') &&
+                                  emailInput.text.endsWith('.com');
+                              final response = await ref
+                                  .read(loginUseCaseProvider)
+                                  .call(
+                                    AuthUserReq(
+                                      password: passwordInput.text,
+                                      email: isEmail ? emailInput.text : null,
+                                      username:
+                                          isEmail ? null : emailInput.text,
+                                    ),
+                                  );
+                              logger.f(response);
+                              if (response is DataSuccess) {
+                                final res = response.data;
+                                if (res == null) return;
+                                if (!res.success) {
+                                  context.showToast(
+                                    title: res.message,
+                                    type: ToastType.warning,
+                                  );
+                                  return;
+                                }
+                                context.showToast(
+                                  title: res.message,
+                                );
+                                await SecureStorage.setRefreshToken(
+                                    res.data?.refreshToken ?? '');
+                                ref.read(accessTokenProvider.notifier).update =
+                                    res.data?.accessToken ?? '';
+
+                                context.push('/home');
+                              } else {
+                                context.showToast(
+                                  title: response.error?.message ??
+                                      'Something went wrong',
+                                  type: ToastType.error,
+                                );
+                              }
+                            },
+                            child: const Text('Continue'),
+                          );
+                        }),
+                        const Gap(20),
+                        Text(
+                          'Or continue with',
+                          style: Poppins(
+                            fontWeight: FontWeight.w500,
+                            color: Colors.grey.shade500,
+                          ),
+                        ),
+                        const Gap(10),
+                        OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                            foregroundColor: Colors.black,
+                            minimumSize: const Size.fromHeight(55),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(3),
+                              side: const BorderSide(
+                                width: 0.5,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ),
+                          onPressed: () {},
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Assets.images.google.image(height: 20),
+                              const Gap(10),
+                              Text(
+                                'Google',
+                                style: Poppins(
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const Gap(20),
+                        TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            'Create a account',
+                            style: Poppins(color: Colors.indigo, fontSize: 12),
+                          ),
+                        ),
+                        const Divider(),
+                        Text(
+                          'Privacy • Github',
+                          style: Poppins(
+                            fontSize: 12,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       }),

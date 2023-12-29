@@ -20,9 +20,10 @@ final goRouter = GoRouter(
       builder: (context, state) => const HomeScreen(),
     ),
     GoRoute(
-      path: '/editor/:id',
+      path: '/editor/:id/:title',
       builder: (context, state) => EditorScreen(
         id: state.pathParameters['id'] as String,
+        title: state.pathParameters['title'] as String,
       ),
     ),
   ],

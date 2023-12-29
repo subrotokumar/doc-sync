@@ -1,12 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class AuthUserReq {
-  final String username;
+  final String? username;
   final String password;
-  final String email;
+  final String? email;
   AuthUserReq({
-    required this.username,
+    this.username,
     required this.password,
-    required this.email,
+    this.email,
   });
 
   @override

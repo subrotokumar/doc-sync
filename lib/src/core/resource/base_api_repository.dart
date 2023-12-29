@@ -1,5 +1,3 @@
-import 'dart:io' show HttpStatus;
-
 import 'package:dio/dio.dart';
 import 'package:docsync/src/core/resource/data_state.dart';
 import 'package:flutter/foundation.dart';

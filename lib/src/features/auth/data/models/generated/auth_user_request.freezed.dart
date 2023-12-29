@@ -20,9 +20,9 @@ AuthUserRequest _$AuthUserRequestFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AuthUserRequest {
-  String get username => throw _privateConstructorUsedError;
+  String? get username => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
-  String get email => throw _privateConstructorUsedError;
+  String? get email => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +36,7 @@ abstract class $AuthUserRequestCopyWith<$Res> {
           AuthUserRequest value, $Res Function(AuthUserRequest) then) =
       _$AuthUserRequestCopyWithImpl<$Res, AuthUserRequest>;
   @useResult
-  $Res call({String username, String password, String email});
+  $Res call({String? username, String password, String? email});
 }
 
 /// @nodoc
@@ -52,23 +52,23 @@ class _$AuthUserRequestCopyWithImpl<$Res, $Val extends AuthUserRequest>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? username = null,
+    Object? username = freezed,
     Object? password = null,
-    Object? email = null,
+    Object? email = freezed,
   }) {
     return _then(_value.copyWith(
-      username: null == username
+      username: freezed == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       password: null == password
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
-      email: null == email
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 }
@@ -81,7 +81,7 @@ abstract class _$$AuthUserRequestImplCopyWith<$Res>
       __$$AuthUserRequestImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String username, String password, String email});
+  $Res call({String? username, String password, String? email});
 }
 
 /// @nodoc
@@ -95,23 +95,23 @@ class __$$AuthUserRequestImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? username = null,
+    Object? username = freezed,
     Object? password = null,
-    Object? email = null,
+    Object? email = freezed,
   }) {
     return _then(_$AuthUserRequestImpl(
-      username: null == username
+      username: freezed == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       password: null == password
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
-      email: null == email
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -119,18 +119,17 @@ class __$$AuthUserRequestImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$AuthUserRequestImpl implements _AuthUserRequest {
-  _$AuthUserRequestImpl(
-      {required this.username, required this.password, required this.email});
+  _$AuthUserRequestImpl({this.username, required this.password, this.email});
 
   factory _$AuthUserRequestImpl.fromJson(Map<String, dynamic> json) =>
       _$$AuthUserRequestImplFromJson(json);
 
   @override
-  final String username;
+  final String? username;
   @override
   final String password;
   @override
-  final String email;
+  final String? email;
 
   @override
   String toString() {
@@ -154,19 +153,19 @@ class _$AuthUserRequestImpl implements _AuthUserRequest {
 
 abstract class _AuthUserRequest implements AuthUserRequest {
   factory _AuthUserRequest(
-      {required final String username,
+      {final String? username,
       required final String password,
-      required final String email}) = _$AuthUserRequestImpl;
+      final String? email}) = _$AuthUserRequestImpl;
 
   factory _AuthUserRequest.fromJson(Map<String, dynamic> json) =
       _$AuthUserRequestImpl.fromJson;
 
   @override
-  String get username;
+  String? get username;
   @override
   String get password;
   @override
-  String get email;
+  String? get email;
   @override
   @JsonKey(ignore: true)
   _$$AuthUserRequestImplCopyWith<_$AuthUserRequestImpl> get copyWith =>

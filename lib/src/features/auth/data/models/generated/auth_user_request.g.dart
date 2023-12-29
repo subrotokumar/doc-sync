@@ -9,9 +9,9 @@ part of '../auth_user_request.dart';
 _$AuthUserRequestImpl _$$AuthUserRequestImplFromJson(
         Map<String, dynamic> json) =>
     _$AuthUserRequestImpl(
-      username: json['username'] as String,
+      username: json['username'] as String?,
       password: json['password'] as String,
-      email: json['email'] as String,
+      email: json['email'] as String?,
     );
 
 Map<String, dynamic> _$$AuthUserRequestImplToJson(

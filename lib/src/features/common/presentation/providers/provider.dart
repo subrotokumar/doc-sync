@@ -25,7 +25,7 @@ class AccessToken extends _$AccessToken {
 Dio dio(DioRef ref,
     {bool useIsolate = false, bool useRefreshInterceptor = true}) {
   final dio = Dio()
-    ..options.baseUrl = 'http://localhost:3001/api/v1'
+    ..options.baseUrl = endpoint
     ..options.contentType = 'application/json'
     ..options.connectTimeout = 5.seconds
     ..options.receiveTimeout = 3.seconds

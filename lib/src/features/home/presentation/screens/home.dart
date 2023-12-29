@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -20,19 +21,13 @@ class HomeScreen extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-      onRefresh: () async {
-        await Future.wait([
-          ref.read(userInfoProvider.future),
-          ref.read(getDocumentsProvider.future),
-        ]);
-      },
-      child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(55),
-          child: Card(
-            elevation: 2,
-            margin: const EdgeInsets.all(0),
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(55),
+        child: Card(
+          elevation: 2,
+          margin: const EdgeInsets.all(0),
+          child: SafeArea(
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               height: 500,
@@ -42,8 +37,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   const Gap(10),
                   GestureDetector(
                     onTap: () async => await Future.wait([
-                      ref.read(userInfoProvider.future),
-                      ref.read(getDocumentsProvider.future),
+                      ref.refresh(userInfoProvider.future),
+                      ref.refresh(getDocumentsProvider.future),
                     ]),
                     child: Assets.images.folders.image(height: 30),
                   ),
@@ -61,7 +56,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     child: GestureDetector(
                       onTap: () async {
                         await ref.read(createDocumentUserCaseProvider).call();
-                        await ref.read(getDocumentsProvider.future);
+                        ref.invalidate(getDocumentsProvider);
                       },
                       child: const CircleAvatar(
                         child: Icon(Icons.add),
@@ -70,7 +65,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   ),
                   const Gap(10),
                   Consumer(builder: (context, ref, child) {
-                    final userData = ref.read(userInfoProvider);
+                    final userData = ref.watch(userInfoProvider);
                     return userData.maybeWhen(
                       data: (d) {
                         return ClipOval(
@@ -94,8 +89,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ),
           ),
         ),
-        body: Consumer(builder: (context, ref, child) {
-          final docsList = ref.read(getDocumentsProvider);
+      ),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          ref.read(userInfoProvider.future);
+          ref.read(getDocumentsProvider.future);
+        },
+        child: Consumer(builder: (context, ref, child) {
+          final docsList = ref.watch(getDocumentsProvider);
           return docsList.maybeWhen(orElse: () {
             logger.w('Not Document found');
             return const SizedBox();
@@ -105,13 +106,33 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 return ListTile(
-                  onTap: () => context.push('/editor/${data[index].id}'),
+                  contentPadding: const EdgeInsets.only(left: 20, right: 20),
+                  onTap: () => context
+                      .push('/editor/${data[index].id}/${data[index].title}'),
                   title: Text(data[index].title),
                   subtitle: Text(data[index].updatedAt.toString()),
-                  trailing: Icon(PhosphorIcons.dotsThreeOutlineVertical()),
+                  trailing: PopupMenuButton(
+                    color: Colors.white,
+                    itemBuilder: (context) {
+                      return [
+                        const PopupMenuItem(
+                          value: 'Delete',
+                          child: Text('Rename'),
+                        ),
+                        const PopupMenuItem(
+                          child: Text('Delete'),
+                        ),
+                      ];
+                    },
+                    child: Icon(
+                      PhosphorIcons.dotsThreeOutlineVertical(
+                        PhosphorIconsStyle.fill,
+                      ),
+                    ),
+                  ),
                 );
               },
-              separatorBuilder: (context, index) => const Gap(6),
+              separatorBuilder: (context, index) => const Gap(4),
               itemCount: data.length,
             );
           });

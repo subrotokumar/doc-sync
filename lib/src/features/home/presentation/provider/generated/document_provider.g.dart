@@ -7,7 +7,7 @@ part of '../document_provider.dart';
 // **************************************************************************
 
 String _$documentRepositoryHash() =>
-    r'93d92ddb6ca872fdb939cd1eee0211a79e85b071';
+    r'534e9b8ee3e6559571c21a3f8442c9d385d1510b';
 
 /// See also [documentRepository].
 @ProviderFor(documentRepository)
@@ -24,7 +24,7 @@ final documentRepositoryProvider =
 
 typedef DocumentRepositoryRef = AutoDisposeProviderRef<DocumentRepository>;
 String _$getDocumentsUseCaseHash() =>
-    r'96642aa283a172e0c6f1616f667ef55ec89a3553';
+    r'b50fb2ecea48c7ed42ef04df05afeff417ca04de';
 
 /// See also [getDocumentsUseCase].
 @ProviderFor(getDocumentsUseCase)

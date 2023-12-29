@@ -6,9 +6,9 @@ part 'generated/auth_user_request.freezed.dart';
 @freezed
 class AuthUserRequest extends AuthUserReq with _$AuthUserRequest {
   factory AuthUserRequest({
-    required String username,
+    String? username,
     required String password,
-    required String email,
+    String? email,
   }) = _AuthUserRequest;
 
   factory AuthUserRequest.fromJson(Map<String, String> json) =>
