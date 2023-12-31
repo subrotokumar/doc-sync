@@ -5,10 +5,10 @@ import 'package:docsync/src/features/home/presentation/screens/home.dart';
 import 'package:go_router/go_router.dart';
 
 final goRouter = GoRouter(
-  initialLocation: '/splash',
+  initialLocation: '/',
   routes: [
     GoRoute(
-      path: '/splash',
+      path: '/',
       builder: (context, state) => const SplashScreen(),
     ),
     GoRoute(
@@ -20,11 +20,9 @@ final goRouter = GoRouter(
       builder: (context, state) => const HomeScreen(),
     ),
     GoRoute(
-      path: '/editor/:id/:title',
-      builder: (context, state) => EditorScreen(
-        id: state.pathParameters['id'] as String,
-        title: state.pathParameters['title'] as String,
-      ),
+      path: '/editor/:id',
+      builder: (context, state) =>
+          EditorScreen(id: state.pathParameters['id'] as String),
     ),
   ],
 );

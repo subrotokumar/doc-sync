@@ -6,10 +6,10 @@ class SocketClient {
   static SocketClient? _instance;
 
   SocketClient._internal() {
-    socket = io(endpoint, {
-      'transports': ['websocket'],
-      'authConnect': false,
-    });
+    socket = io(
+      endpoint,
+      OptionBuilder().setTransports(['websocket']).disableAutoConnect().build(),
+    );
     socket?.connect();
   }
 

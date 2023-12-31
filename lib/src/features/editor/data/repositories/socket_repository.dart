@@ -9,4 +9,19 @@ class SocketRepositoryImpl extends SocketRepository {
   void joinRoom(String documentId) {
     _socketClient.emit('join', documentId);
   }
+
+  @override
+  void autoSave(Map<String, dynamic> data) {
+    _socketClient.emit('save', data);
+  }
+
+  @override
+  void changeListener(Function(Map<String, dynamic>) func) {
+    _socketClient.on('changes', (data) => func(data));
+  }
+
+  @override
+  void typing(Map<String, dynamic> data) {
+    _socketClient.emit('typing', data);
+  }
 }

@@ -19,6 +19,12 @@ LoginUseCase loginUseCase(LoginUseCaseRef ref) {
 }
 
 @riverpod
+RegisterUseCase registerUseCase(RegisterUseCaseRef ref) {
+  final userRepository = ref.read(userRepositoryProvider);
+  return RegisterUseCase(userRepository);
+}
+
+@riverpod
 RefreshTokenUseCase refreshTokenUseCase(RefreshTokenUseCaseRef ref) {
   final dio = ref.read(dioProvider(useRefreshInterceptor: false));
   final userRepository = UserRepositoryImpl(client: UserClient(dio));

@@ -100,39 +100,74 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             logger.w('Not Document found');
             return const SizedBox();
           }, data: (data) {
-            return ListView.separated(
-              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  contentPadding: const EdgeInsets.only(left: 20, right: 20),
-                  onTap: () => context
-                      .push('/editor/${data[index].id}/${data[index].title}'),
-                  title: Text(data[index].title),
-                  subtitle: Text(data[index].updatedAt.toString()),
-                  trailing: PopupMenuButton(
-                    color: Colors.white,
-                    itemBuilder: (context) {
-                      return [
-                        const PopupMenuItem(
-                          value: 'Delete',
-                          child: Text('Rename'),
-                        ),
-                        const PopupMenuItem(
-                          child: Text('Delete'),
-                        ),
-                      ];
+            return Column(
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(top: 20),
+                  width: 400,
+                  child: TextField(
+                    onSubmitted: (v) {
+                      context.push('/editor/$v');
                     },
-                    child: Icon(
-                      PhosphorIcons.dotsThreeOutlineVertical(
-                        PhosphorIconsStyle.fill,
+                    decoration: InputDecoration(
+                      isDense: true,
+                      filled: true,
+                      fillColor: Colors.white,
+                      focusColor: colorFromHex('ebecf0'),
+                      hoverColor: colorFromHex('ebecf0'),
+                      border: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      hintText: 'Join code',
+                      hintStyle: Poppins(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 16,
                       ),
                     ),
                   ),
-                );
-              },
-              separatorBuilder: (context, index) => const Gap(4),
-              itemCount: data.length,
+                ),
+                ListView.separated(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      contentPadding:
+                          const EdgeInsets.only(left: 20, right: 20),
+                      onTap: () => context.push('/editor/${data[index].id}'),
+                      title: Text(data[index].title),
+                      subtitle: Text(data[index].updatedAt.toString()),
+                      trailing: PopupMenuButton(
+                        color: Colors.white,
+                        itemBuilder: (context) {
+                          return [
+                            const PopupMenuItem(
+                              value: 'Delete',
+                              child: Text('Rename'),
+                            ),
+                            const PopupMenuItem(
+                              child: Text('Delete'),
+                            ),
+                          ];
+                        },
+                        child: Icon(
+                          PhosphorIcons.dotsThreeOutlineVertical(
+                            PhosphorIconsStyle.fill,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  separatorBuilder: (context, index) => const Gap(4),
+                  itemCount: data.length,
+                ),
+              ],
             );
           });
         }),
