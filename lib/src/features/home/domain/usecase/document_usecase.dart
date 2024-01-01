@@ -20,3 +20,12 @@ class GetDocumentsUseCase {
     return documentRepository.getDocument();
   }
 }
+
+class DeleteDocumentUseCase {
+  final DocumentRepository documentRepository;
+  DeleteDocumentUseCase(this.documentRepository);
+
+  Future<DataState<void>> call(String id) async {
+    return documentRepository.deleteDocument(id);
+  }
+}

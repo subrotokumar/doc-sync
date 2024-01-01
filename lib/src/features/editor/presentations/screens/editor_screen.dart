@@ -3,10 +3,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'dart:math';
 
-import 'package:docsync/src/config/config.dart';
-import 'package:docsync/src/features/editor/presentations/provider/socket_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
@@ -15,12 +12,13 @@ import 'package:flutter_quill_extensions/flutter_quill_embeds.dart' as ext;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import 'package:docsync/src/config/config.dart';
 import 'package:docsync/src/config/themes/themes.dart';
 import 'package:docsync/src/core/core.dart';
 import 'package:docsync/src/features/editor/domain/entities/docs.dart';
 import 'package:docsync/src/features/editor/presentations/provider/docs_provider.dart';
+import 'package:docsync/src/features/editor/presentations/provider/socket_provider.dart';
 import 'package:docsync/src/features/home/presentation/provider/document_provider.dart';
 
 class EditorScreen extends ConsumerStatefulWidget {
@@ -217,8 +215,7 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
                           foregroundColor: Colors.white,
                         ),
                         onPressed: () {},
-                        icon: Icon(
-                            PhosphorIcons.lockKey(PhosphorIconsStyle.fill)),
+                        icon: const SizedBox(),
                         label: const Text('Share'),
                       ),
                       const Gap(10),

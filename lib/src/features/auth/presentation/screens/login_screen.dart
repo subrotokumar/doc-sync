@@ -1,13 +1,11 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'dart:math';
-
+import 'package:docsync/src/features/common/presentation/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import 'package:docsync/src/config/themes/themes.dart';
 import 'package:docsync/src/core/core.dart';
@@ -299,75 +297,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             ),
           );
         },
-      ),
-    );
-  }
-}
-
-class CustomTextField extends StatefulWidget {
-  const CustomTextField({
-    super.key,
-    required this.controller,
-    required this.hint,
-    this.isPassword = false,
-    this.onSubmit,
-    this.onChange,
-  });
-
-  final TextEditingController controller;
-  final String hint;
-  final bool isPassword;
-  final Function(String value)? onSubmit;
-  final Function(String value)? onChange;
-
-  @override
-  State<CustomTextField> createState() => _CustomTextFieldState();
-}
-
-class _CustomTextFieldState extends State<CustomTextField> {
-  bool showPass = false;
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      controller: widget.controller,
-      keyboardType: TextInputType.emailAddress,
-      onSubmitted: widget.onSubmit,
-      onChanged: widget.onChange,
-      obscureText: widget.isPassword,
-      decoration: InputDecoration(
-        isDense: true,
-        filled: true,
-        fillColor: Colors.white,
-        focusColor: colorFromHex('ebecf0'),
-        hoverColor: colorFromHex('ebecf0'),
-        suffixIcon: widget.isPassword
-            ? IconButton(
-                onPressed: () => setState(() {
-                  showPass = !showPass;
-                }),
-                icon: Icon(
-                  !showPass
-                      ? PhosphorIconsBold.eyeSlash
-                      : PhosphorIconsBold.eye,
-                  color: Colors.black26,
-                ),
-              )
-            : null,
-        border: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey),
-        ),
-        enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey),
-        ),
-        focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey),
-        ),
-        hintText: widget.hint,
-        hintStyle: Poppins(
-          fontWeight: FontWeight.w400,
-          fontSize: 16,
-        ),
-        labelText: widget.hint,
       ),
     );
   }

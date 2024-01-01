@@ -57,6 +57,24 @@ final createDocumentUserCaseProvider =
 
 typedef CreateDocumentUserCaseRef
     = AutoDisposeProviderRef<CreateDocumentUseCase>;
+String _$deleteDocumentUseCaseHash() =>
+    r'c80f610832002f213b4a6787d7b586860dfab80b';
+
+/// See also [deleteDocumentUseCase].
+@ProviderFor(deleteDocumentUseCase)
+final deleteDocumentUseCaseProvider =
+    AutoDisposeProvider<DeleteDocumentUseCase>.internal(
+  deleteDocumentUseCase,
+  name: r'deleteDocumentUseCaseProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$deleteDocumentUseCaseHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef DeleteDocumentUseCaseRef
+    = AutoDisposeProviderRef<DeleteDocumentUseCase>;
 String _$getDocumentsHash() => r'69d40a8a00b0d9fdd49d797e9abe00a6ac0e9222';
 
 /// See also [getDocuments].

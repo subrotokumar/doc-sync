@@ -17,4 +17,9 @@ class DocumentRepositoryImpl extends DocumentRepository with BaseApiRepository {
   Future<DataState<ApiResponse<MyDocuments>>> getDocument() {
     return getStateOf(request: () => client.myDocument());
   }
+
+  @override
+  Future<DataState<void>> deleteDocument(String id) {
+    return getStateOf(request: () => client.deleteDocument(id));
+  }
 }

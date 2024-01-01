@@ -29,6 +29,12 @@ CreateDocumentUseCase createDocumentUserCase(CreateDocumentUserCaseRef ref) {
   return CreateDocumentUseCase(documentRepository);
 }
 
+@riverpod
+DeleteDocumentUseCase deleteDocumentUseCase(DeleteDocumentUseCaseRef ref) {
+  final documentRepository = ref.read(documentRepositoryProvider);
+  return DeleteDocumentUseCase(documentRepository);
+}
+
 @Riverpod(keepAlive: true)
 Future<List<Document>> getDocuments(Ref ref) async {
   final res = await ref.read(getDocumentsUseCaseProvider).call();

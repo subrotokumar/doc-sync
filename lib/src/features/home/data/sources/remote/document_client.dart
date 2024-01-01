@@ -15,4 +15,9 @@ abstract class DocumentClient {
 
   @GET('/document/create')
   Future<HttpResponse<ApiResponse<DocumentModel>>> createDocument();
+
+  @DELETE('/docs/{id}')
+  Future<HttpResponse<void>> deleteDocument(
+    @Path('id') String id,
+  );
 }
