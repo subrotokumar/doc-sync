@@ -11,8 +11,7 @@ _$DocsModelImpl _$$DocsModelImplFromJson(Map<String, dynamic> json) =>
       createdBy: json['createdBy'] as String,
       id: json['_id'] as String,
       title: json['title'] as String,
-      content:
-          (json['content'] as List<dynamic>).map((e) => e as String).toList(),
+      content: json['content'] as List<dynamic>,
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
     );
@@ -30,13 +29,13 @@ Map<String, dynamic> _$$DocsModelImplToJson(_$DocsModelImpl instance) =>
 _$UpdateDocsTitleReqModelImpl _$$UpdateDocsTitleReqModelImplFromJson(
         Map<String, dynamic> json) =>
     _$UpdateDocsTitleReqModelImpl(
-      id: json['id'] as String,
+      id: json['documentId'] as String,
       title: json['title'] as String,
     );
 
 Map<String, dynamic> _$$UpdateDocsTitleReqModelImplToJson(
         _$UpdateDocsTitleReqModelImpl instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'documentId': instance.id,
       'title': instance.title,
     };

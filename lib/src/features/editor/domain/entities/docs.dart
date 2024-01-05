@@ -2,7 +2,7 @@
 class Docs {
   final String id;
   final String title;
-  final List<String> content;
+  final List<dynamic> content;
   final DateTime createdAt;
   final DateTime updatedAt;
   final String createdBy;

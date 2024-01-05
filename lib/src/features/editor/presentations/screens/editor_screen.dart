@@ -6,6 +6,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:flutter_quill/quill_delta.dart' as delta;
 import 'package:flutter_quill_extensions/flutter_quill_embeds.dart' as ext;
@@ -51,7 +52,7 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
       voidChange(input);
     });
 
-    Timer.periodic(const Duration(seconds: 2), (timer) {
+    Timer.periodic(const Duration(seconds: 5), (timer) {
       socketRepository.autoSave(<String, dynamic>{
         'delta': _controller?.document.toDelta(),
         'room': widget.id,
@@ -73,13 +74,16 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
       data = (await ref.read(getDocByIdUseCaseProvider).call(widget.id))
           .data
           ?.data;
-
+      logger.e(data);
       if (data != null) {
         titleInput.text = data!.title;
       }
-    } catch (_) {
+    } catch (e, s) {
+      logger.e(e);
+      logger.f(s);
     } finally {
       setState(() {});
+      logger.f(data?.content);
       _controller = quill.QuillController(
         document: data?.content == null || (data?.content.isEmpty ?? true)
             ? quill.Document()
@@ -214,7 +218,14 @@ class _EditorScreenState extends ConsumerState<EditorScreen> {
                           backgroundColor: Colors.blue,
                           foregroundColor: Colors.white,
                         ),
-                        onPressed: () {},
+                        onPressed: () async {
+                          await Clipboard.setData(
+                            ClipboardData(text: widget.id),
+                          );
+                          context.showToast(
+                              title: 'Copied join code: ${widget.id}',
+                              duration: 2.seconds);
+                        },
                         icon: const SizedBox(),
                         label: const Text('Share'),
                       ),

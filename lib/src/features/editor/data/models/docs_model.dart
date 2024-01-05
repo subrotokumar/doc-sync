@@ -12,7 +12,7 @@ class DocsModel extends Docs with _$DocsModel {
     required String createdBy,
     @JsonKey(name: '_id') required String id,
     required String title,
-    required List<String> content,
+    required List<dynamic> content,
     required DateTime createdAt,
     required DateTime updatedAt,
   }) = _DocsModel;
@@ -25,7 +25,7 @@ class DocsModel extends Docs with _$DocsModel {
 class UpdateDocsTitleReqModel extends UpdateDocsTitleReq
     with _$UpdateDocsTitleReqModel {
   factory UpdateDocsTitleReqModel({
-    required String id,
+    @JsonKey(name: 'documentId') required String id,
     required String title,
   }) = _UpdateDocsTitleReqModel;
 

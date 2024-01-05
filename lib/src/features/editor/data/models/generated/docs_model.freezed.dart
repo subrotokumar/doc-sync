@@ -24,7 +24,7 @@ mixin _$DocsModel {
   @JsonKey(name: '_id')
   String get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
-  List<String> get content => throw _privateConstructorUsedError;
+  List<dynamic> get content => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
 
@@ -43,7 +43,7 @@ abstract class $DocsModelCopyWith<$Res> {
       {String createdBy,
       @JsonKey(name: '_id') String id,
       String title,
-      List<String> content,
+      List<dynamic> content,
       DateTime createdAt,
       DateTime updatedAt});
 }
@@ -84,7 +84,7 @@ class _$DocsModelCopyWithImpl<$Res, $Val extends DocsModel>
       content: null == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<dynamic>,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -109,7 +109,7 @@ abstract class _$$DocsModelImplCopyWith<$Res>
       {String createdBy,
       @JsonKey(name: '_id') String id,
       String title,
-      List<String> content,
+      List<dynamic> content,
       DateTime createdAt,
       DateTime updatedAt});
 }
@@ -148,7 +148,7 @@ class __$$DocsModelImplCopyWithImpl<$Res>
       content: null == content
           ? _value._content
           : content // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<dynamic>,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -168,7 +168,7 @@ class _$DocsModelImpl implements _DocsModel {
       {required this.createdBy,
       @JsonKey(name: '_id') required this.id,
       required this.title,
-      required final List<String> content,
+      required final List<dynamic> content,
       required this.createdAt,
       required this.updatedAt})
       : _content = content;
@@ -183,9 +183,9 @@ class _$DocsModelImpl implements _DocsModel {
   final String id;
   @override
   final String title;
-  final List<String> _content;
+  final List<dynamic> _content;
   @override
-  List<String> get content {
+  List<dynamic> get content {
     if (_content is EqualUnmodifiableListView) return _content;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_content);
@@ -241,7 +241,7 @@ abstract class _DocsModel implements DocsModel {
       {required final String createdBy,
       @JsonKey(name: '_id') required final String id,
       required final String title,
-      required final List<String> content,
+      required final List<dynamic> content,
       required final DateTime createdAt,
       required final DateTime updatedAt}) = _$DocsModelImpl;
 
@@ -256,7 +256,7 @@ abstract class _DocsModel implements DocsModel {
   @override
   String get title;
   @override
-  List<String> get content;
+  List<dynamic> get content;
   @override
   DateTime get createdAt;
   @override
@@ -274,6 +274,7 @@ UpdateDocsTitleReqModel _$UpdateDocsTitleReqModelFromJson(
 
 /// @nodoc
 mixin _$UpdateDocsTitleReqModel {
+  @JsonKey(name: 'documentId')
   String get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
 
@@ -289,7 +290,7 @@ abstract class $UpdateDocsTitleReqModelCopyWith<$Res> {
           $Res Function(UpdateDocsTitleReqModel) then) =
       _$UpdateDocsTitleReqModelCopyWithImpl<$Res, UpdateDocsTitleReqModel>;
   @useResult
-  $Res call({String id, String title});
+  $Res call({@JsonKey(name: 'documentId') String id, String title});
 }
 
 /// @nodoc
@@ -331,7 +332,7 @@ abstract class _$$UpdateDocsTitleReqModelImplCopyWith<$Res>
       __$$UpdateDocsTitleReqModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String title});
+  $Res call({@JsonKey(name: 'documentId') String id, String title});
 }
 
 /// @nodoc
@@ -366,12 +367,14 @@ class __$$UpdateDocsTitleReqModelImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$UpdateDocsTitleReqModelImpl implements _UpdateDocsTitleReqModel {
-  _$UpdateDocsTitleReqModelImpl({required this.id, required this.title});
+  _$UpdateDocsTitleReqModelImpl(
+      {@JsonKey(name: 'documentId') required this.id, required this.title});
 
   factory _$UpdateDocsTitleReqModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$UpdateDocsTitleReqModelImplFromJson(json);
 
   @override
+  @JsonKey(name: 'documentId')
   final String id;
   @override
   final String title;
@@ -411,13 +414,14 @@ class _$UpdateDocsTitleReqModelImpl implements _UpdateDocsTitleReqModel {
 
 abstract class _UpdateDocsTitleReqModel implements UpdateDocsTitleReqModel {
   factory _UpdateDocsTitleReqModel(
-      {required final String id,
+      {@JsonKey(name: 'documentId') required final String id,
       required final String title}) = _$UpdateDocsTitleReqModelImpl;
 
   factory _UpdateDocsTitleReqModel.fromJson(Map<String, dynamic> json) =
       _$UpdateDocsTitleReqModelImpl.fromJson;
 
   @override
+  @JsonKey(name: 'documentId')
   String get id;
   @override
   String get title;

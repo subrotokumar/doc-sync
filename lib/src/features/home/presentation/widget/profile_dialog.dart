@@ -1,3 +1,7 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:docsync/src/core/utils/secure_storage.dart';
+import 'package:docsync/src/features/auth/presentation/provider/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -98,7 +102,11 @@ class _ProfileDialogWidgetState extends ConsumerState<_ProfileDialogWidget> {
                 backgroundColor: colorFromHex('0065ff'),
                 foregroundColor: Colors.white,
               ),
-              onPressed: () {},
+              onPressed: () async {
+                await ref.read(logoutUseCaseProvider).call();
+                SecureStorage.setRefreshToken('');
+                context.go("/");
+              },
               child: const Text('Logout'),
             ),
           ],

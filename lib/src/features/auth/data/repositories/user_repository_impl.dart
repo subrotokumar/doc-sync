@@ -31,9 +31,9 @@ class UserRepositoryImpl extends UserRepository with BaseApiRepository {
   }
 
   @override
-  Future<DataState<void>> logout(String accessToken) {
+  Future<DataState<void>> logout() {
     return getStateOf<void>(
-      request: () => client.logout('Bearer $accessToken'),
+      request: () => client.logout(),
     );
   }
 

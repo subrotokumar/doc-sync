@@ -10,5 +10,5 @@ abstract class UserRepository {
   Future<DataState<ApiResponse<RegisterUserRes>>> register(AuthUserReq body);
   Future<DataState<ApiResponse<LoginUserRes>>> login(AuthUserReq body);
   Future<DataState<ApiResponse<RefreshTokenRes>>> refresh(RefreshTokenReq body);
-  Future<DataState<void>> logout(String accessToken);
+  Future<DataState<void>> logout();
 }
