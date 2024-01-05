@@ -1,4 +1,4 @@
-<img src="./assets/images/folders.png" width="70">
+<img src="./screenshot/docsync.png">
   
 # Docsync
 **Realtime Collaborative Document Editor**
@@ -14,9 +14,10 @@ This is the client application for Docsync, a real-time collaborative cross-plat
 
 
 > **Backend**:  
-> Typescript, Node.js, Express, MongoDB, Socket.IO, Docker, Grafana, Prometheus  
+> Typescript, Node.js, Express, MongoDB, Socket.IO, Docker, Grafana, Prometheus , AWS S3 
 >
-> ![](https://skillicons.dev/icons?i=nodejs,typescript,express,mongodb,prometheus,grafana&theme=light)  
+> ![](https://skillicons.dev/icons?i=nodejs,typescript,express,mongodb,prometheus,grafana,aws&theme=light)  
+> Backend Link: [Doc-sync-server](https://github.com/subrotokumar/doc-sync-server)
 
 
 
@@ -28,17 +29,6 @@ This is the client application for Docsync, a real-time collaborative cross-plat
 - User profiles and management
 - Cross-platform
 - Build using clean architecture
-  
-## Screenshots
-
-### Desktop and Web
-![](./screenshot/desktop_editor.png)  
-  
-![](./screenshot/desktop_home.png)
-
-### Mobile
-<img src="./screenshot/mobile_home.png" width="40%" height="600">  <img src="./screenshot/mobile_editor.png" width="40%" height="600">
-
 
 ### Prerequisites
 - Flutter SDK
@@ -60,10 +50,9 @@ flutter run
 ```
 
 **Supported Platforms:**
+- Desktop (currently available)
 - Android
 - iOS
 - Web
-- Desktop
 
-### License
-MIT
+**License**: [MIT](./LICENSE)
