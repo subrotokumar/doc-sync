@@ -3,7 +3,7 @@ description: "A new Flutter project."
 
 publish_to: "none" 
 
-version: 1.0.0+1
+version: 0.1.0+1
 
 environment:
   sdk: ">=3.2.0 <4.0.0"
@@ -32,6 +32,7 @@ dependencies:
   socket_io_client: ^2.0.3+1
   flutter_quill_extensions: ^9.2.0
   lottie: ^2.7.0
+  envied: ^0.5.2
 
 dev_dependencies:
   flutter_test:
@@ -44,6 +45,7 @@ dev_dependencies:
   riverpod_generator: ^2.3.9
   freezed: ^2.4.6
   flutter_launcher_icons: ^0.13.1
+  envied_generator: ^0.5.2
 
 flutter_launcher_icons:
   android: "launcher_icon"

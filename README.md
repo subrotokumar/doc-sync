@@ -5,21 +5,24 @@
 
 This is the client application for Docsync, a real-time collaborative cross-platform document editor available on Android, iOS, Web, and Desktop.
 
+[![Download](./screenshot/image.png)](https://github.com/subrotokumar/doc-sync/releases/)
+
 ### Tech Stack
 
-> **Frontend**  
-> Flutter, Dart, Riverpod, Retrofit, Dio, Quill, Socket.IO, Freezed, GoRouter 
-> 
+> ### Frontend
+>
+> Flutter, Dart, Riverpod, Retrofit, Dio, Quill, Socket.IO, Freezed, GoRouter
+>
 > ![](https://skillicons.dev/icons?i=flutter,dart&theme=light)
 
-
-> **Backend**:  
-> Typescript, Node.js, Express, MongoDB, Socket.IO, Docker, Grafana, Prometheus , AWS S3 
+> ### Backend:
 >
-> ![](https://skillicons.dev/icons?i=nodejs,typescript,express,mongodb,prometheus,grafana,aws&theme=light)  
-> Backend Link: [Doc-sync-server](https://github.com/subrotokumar/doc-sync-server)
-
-
+> Typescript, Node.js, Express, MongoDB, Socket.IO, Docker, Grafana, Prometheus , AWS S3, EC2
+>
+> ![](https://skillicons.dev/icons?i=nodejs,typescript,express,mongodb,prometheus,grafana,aws&theme=light)
+>
+> **Backend Repo Link**: [Docsync server](https://github.com/subrotokumar/doc-sync-server)  
+> **Backend API Docs:** [API Documentation](https://docsync.subrotokumar.com/docs)
 
 ### Key features:
 
@@ -31,27 +34,43 @@ This is the client application for Docsync, a real-time collaborative cross-plat
 - Build using clean architecture
 
 ### Prerequisites
+
 - Flutter SDK
-- Dart SDK  
-  
-### Installation
-```bash
-# Clone the repo
-git clone https://github.com/subrotokumar/doc-sync.git
-cd doc-sync
+- Dart SDK
 
-# Install dependencies
-flutter pub get
+### Getting Started
 
-# Configure backend connection in lib/constants.dart
+1. Installation
 
-# Run the app
-flutter run
-```
+   ```bash
+   # Clone the repo
+   git clone https://github.com/subrotokumar/doc-sync.git
+   cd doc-sync
+
+   # Install dependencies
+   flutter pub get
+   ```
+
+2. Create `.env` file at project level and add below data in it:
+
+   ```.env
+   endpoint="https://localhost:3001"
+   ```
+
+3. Run below command to create generator files:
+   ```bash
+   dart run build_runner build
+   ```
+4. Run the program
+   ```
+   # Run the app
+   flutter run
+   ```
 
 **Supported Platforms:**
+
 - Desktop (currently available)
-- Android
+- Android (currently available)
 - iOS
 - Web
 
