@@ -1,4 +1,4 @@
-import 'package:docsync/src/core/constants/constants.dart';
+import 'package:docsync/src/core/constants/env.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
 
@@ -10,7 +10,7 @@ part 'generated/socket_provider.g.dart';
 @Riverpod(keepAlive: true)
 io.Socket socketClient(SocketClientRef ref) {
   final socket = io.io(
-    endpoint,
+    Env.endpoint,
     io.OptionBuilder()
         .setTransports(['websocket'])
         .disableAutoConnect()

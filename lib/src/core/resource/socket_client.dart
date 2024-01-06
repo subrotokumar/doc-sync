@@ -1,4 +1,4 @@
-import 'package:docsync/src/core/constants/constants.dart';
+import 'package:docsync/src/core/constants/env.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 
 class SocketClient {
@@ -7,7 +7,7 @@ class SocketClient {
 
   SocketClient._internal() {
     socket = io(
-      endpoint,
+      Env.endpoint,
       OptionBuilder().setTransports(['websocket']).disableAutoConnect().build(),
     );
     socket?.connect();

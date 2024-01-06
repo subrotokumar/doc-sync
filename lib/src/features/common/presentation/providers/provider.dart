@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:docsync/src/core/constants/env.dart';
 import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -25,7 +26,7 @@ class AccessToken extends _$AccessToken {
 Dio dio(DioRef ref,
     {bool useIsolate = false, bool useRefreshInterceptor = true}) {
   final dio = Dio()
-    ..options.baseUrl = '$endpoint/api/v1'
+    ..options.baseUrl = '${Env.endpoint}/api/v1'
     ..options.contentType = 'application/json'
     ..options.connectTimeout = 5.seconds
     ..options.receiveTimeout = 3.seconds

@@ -21,7 +21,7 @@ Future<void> showProfileDialog(BuildContext context) async {
 }
 
 class _ProfileDialogWidget extends ConsumerStatefulWidget {
-  const _ProfileDialogWidget({super.key});
+  const _ProfileDialogWidget();
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
